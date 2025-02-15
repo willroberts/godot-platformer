@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://by1t6n27tvwo5"]
+[gd_scene load_steps=10 format=4 uid="uid://by1t6n27tvwo5"]
 
 [ext_resource type="PackedScene" uid="uid://c7ppmq8f0ysol" path="res://scenes/player.tscn" id="1_irj10"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2_u6dx3"]
@@ -139,6 +139,43 @@ texture = ExtResource("3_lmlsq")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_jpluh")
 
+[sub_resource type="Animation" id="Animation_q8hbm"]
+resource_name = "move"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(153, 100), Vector2(232, 100)]
+}
+
+[sub_resource type="Animation" id="Animation_axbbh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(153, 100)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l4hne"]
+_data = {
+"RESET": SubResource("Animation_axbbh"),
+"move": SubResource("Animation_q8hbm")
+}
+
 [node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_irj10")]
@@ -160,3 +197,12 @@ position = Vector2(104, 100)
 
 [node name="Platform2" parent="." instance=ExtResource("4_i4hce")]
 position = Vector2(153, 100)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform2"]
+libraries = {
+"": SubResource("AnimationLibrary_l4hne")
+}
+autoplay = "move"
+
+[node name="Platform3" parent="." instance=ExtResource("4_i4hce")]
+position = Vector2(320, 100)
