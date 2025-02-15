@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=4 uid="uid://by1t6n27tvwo5"]
+[gd_scene load_steps=13 format=4 uid="uid://by1t6n27tvwo5"]
 
 [ext_resource type="PackedScene" uid="uid://c7ppmq8f0ysol" path="res://scenes/player.tscn" id="1_irj10"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2_u6dx3"]
 [ext_resource type="Texture2D" uid="uid://5oxdorb0e3em" path="res://assets/sprites/world_tileset.png" id="3_lmlsq"]
 [ext_resource type="PackedScene" uid="uid://c6farqosju3f3" path="res://scenes/platform.tscn" id="4_i4hce"]
+[ext_resource type="PackedScene" uid="uid://dsllr2hbhm23k" path="res://scenes/coin.tscn" id="5_fvrg2"]
+[ext_resource type="PackedScene" uid="uid://cmihnokdytckj" path="res://scenes/killzone.tscn" id="6_4x2hi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jpluh"]
 texture = ExtResource("3_lmlsq")
@@ -139,6 +141,9 @@ texture = ExtResource("3_lmlsq")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_jpluh")
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xckgu"]
+distance = -189.0
+
 [sub_resource type="Animation" id="Animation_q8hbm"]
 resource_name = "move"
 loop_mode = 2
@@ -186,23 +191,43 @@ script = ExtResource("2_u6dx3")
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(1, -6)
 zoom = Vector2(4, 4)
+limit_bottom = 160
+limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAAgAAAAAAAAAAAABAAgAAAAAAAAAAAACAAgAAAAAAAAAAAADAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAFAAgAAAAAAAAAAAAGAAgAAAAAAAAAAAAHAAgAAAAAAAAAAAAIAAgAAAAAAAAAAAAJAAgAAAAAAAAAAAAKAAgAAAAAAAAAAAALAAgAAAAAAAAAAAAMAAgAAAAAAAAAAAANAAgAAAAAAAAAAAAOAAgAAAAAAAAAAAAPAAgAAAAAAAAAAAAQAAgAAAAAAAAAAAARAAgAAAAAAAAAAAAAAAcAAAAAAAUAAAARAAcAAAAAAAUAAAAAAAYAAAAAAAQAAAAAAAUAAAAAAAQAAAAAAAQAAAAAAAQAAAARAAYAAAAAAAQAAAARAAUAAAAAAAQAAAARAAQAAAAAAAMAAAAAAAMAAAAAAAMAAAAAAAkAAAABAAAAAAABAAkAAAABAAEAAAACAAkAAAABAAAAAAAEAAkAAAABAAAAAAAGAAkAAAABAAAAAAAIAAkAAAABAAAAAAAKAAkAAAABAAAAAAAMAAkAAAABAAAAAAAOAAkAAAABAAAAAAAQAAkAAAABAAAAAAADAAkAAAABAAEAAAAFAAkAAAABAAEAAAAHAAkAAAABAAEAAAAJAAkAAAABAAEAAAALAAkAAAABAAEAAAANAAkAAAABAAEAAAAPAAkAAAABAAEAAAARAAkAAAABAAEAAAASAAQAAAAAAAMAAAASAAUAAAAAAAQAAAASAAYAAAAAAAQAAAASAAcAAAAAAAUAAAASAAgAAAAAAAAAAAASAAkAAAABAAEAAAAUAAkAAAABAAEAAAAWAAkAAAABAAEAAAAYAAkAAAABAAEAAAAaAAkAAAABAAEAAAAcAAkAAAABAAEAAAATAAkAAAABAAAAAAAVAAkAAAABAAAAAAAXAAkAAAABAAAAAAAZAAkAAAABAAAAAAAbAAkAAAABAAAAAAAcAAcAAAAAAAUAAAAcAAYAAAAAAAQAAAAcAAUAAAAAAAQAAAAcAAQAAAAAAAQAAAAcAAMAAAAAAAMAAAATAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAAVAAgAAAAAAAAAAAAWAAgAAAAAAAAAAAAXAAgAAAAAAAAAAAAYAAgAAAAAAAAAAAAZAAgAAAAAAAAAAAAaAAgAAAAAAAAAAAAbAAgAAAAAAAAAAAAcAAgAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAAgAAAAAAAAAAAABAAgAAAAAAAAAAAACAAgAAAAAAAAAAAADAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAFAAgAAAAAAAAAAAAGAAgAAAAAAAAAAAAHAAgAAAAAAAAAAAAIAAgAAAAAAAAAAAAJAAgAAAAAAAAAAAAKAAgAAAAAAAAAAAALAAgAAAAAAAAAAAAMAAgAAAAAAAAAAAANAAgAAAAAAAAAAAAOAAgAAAAAAAAAAAAPAAgAAAAAAAAAAAAQAAgAAAAAAAAAAAARAAgAAAAAAAAAAAAAAAcAAAAAAAUAAAARAAcAAAAAAAUAAAAAAAYAAAAAAAQAAAAAAAUAAAAAAAQAAAAAAAQAAAAAAAQAAAARAAYAAAAAAAQAAAARAAUAAAAAAAQAAAARAAQAAAAAAAMAAAAAAAMAAAAAAAMAAAAAAAkAAAABAAAAAAABAAkAAAABAAEAAAACAAkAAAABAAAAAAAEAAkAAAABAAAAAAAGAAkAAAABAAAAAAAIAAkAAAABAAAAAAAKAAkAAAABAAAAAAAMAAkAAAABAAAAAAAOAAkAAAABAAAAAAAQAAkAAAABAAAAAAADAAkAAAABAAEAAAAFAAkAAAABAAEAAAAHAAkAAAABAAEAAAAJAAkAAAABAAEAAAALAAkAAAABAAEAAAANAAkAAAABAAEAAAAPAAkAAAABAAEAAAARAAkAAAABAAEAAAASAAQAAAAAAAMAAAASAAUAAAAAAAQAAAASAAYAAAAAAAQAAAASAAcAAAAAAAUAAAASAAgAAAAAAAAAAAASAAkAAAABAAEAAAAUAAkAAAABAAEAAAAWAAkAAAABAAEAAAAYAAkAAAABAAEAAAAaAAkAAAABAAEAAAAcAAkAAAABAAEAAAATAAkAAAABAAAAAAAVAAkAAAABAAAAAAAXAAkAAAABAAAAAAAZAAkAAAABAAAAAAAbAAkAAAABAAAAAAATAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAAVAAgAAAAAAAAAAAAWAAgAAAAAAAAAAAAXAAgAAAAAAAAAAAAYAAgAAAAAAAAAAAAZAAgAAAAAAAAAAAAaAAgAAAAAAAAAAAAbAAgAAAAAAAAAAAAcAAgAAAAAAAAAAAAcAAcAAAAAAAUAAAA=")
 tile_set = SubResource("TileSet_1kdn8")
 
-[node name="Platform" parent="." instance=ExtResource("4_i4hce")]
+[node name="Killzone" parent="." instance=ExtResource("6_4x2hi")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+shape = SubResource("WorldBoundaryShape2D_xckgu")
+
+[node name="Coins" type="Node" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource("5_fvrg2")]
+position = Vector2(393, 119)
+
+[node name="Coin2" parent="Coins" instance=ExtResource("5_fvrg2")]
+position = Vector2(409, 119)
+
+[node name="Coin3" parent="Coins" instance=ExtResource("5_fvrg2")]
+position = Vector2(425, 119)
+
+[node name="Platforms" type="Node" parent="."]
+
+[node name="Platform" parent="Platforms" instance=ExtResource("4_i4hce")]
 position = Vector2(104, 100)
 
-[node name="Platform2" parent="." instance=ExtResource("4_i4hce")]
+[node name="Platform2" parent="Platforms" instance=ExtResource("4_i4hce")]
 position = Vector2(153, 100)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform2"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platforms/Platform2"]
 libraries = {
 "": SubResource("AnimationLibrary_l4hne")
 }
 autoplay = "move"
 
-[node name="Platform3" parent="." instance=ExtResource("4_i4hce")]
+[node name="Platform3" parent="Platforms" instance=ExtResource("4_i4hce")]
 position = Vector2(320, 100)
