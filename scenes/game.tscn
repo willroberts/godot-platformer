@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://by1t6n27tvwo5"]
+[gd_scene load_steps=12 format=4 uid="uid://by1t6n27tvwo5"]
 
 [ext_resource type="PackedScene" uid="uid://c7ppmq8f0ysol" path="res://scenes/player.tscn" id="1_irj10"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2_u6dx3"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c6farqosju3f3" path="res://scenes/platform.tscn" id="4_i4hce"]
 [ext_resource type="PackedScene" uid="uid://dsllr2hbhm23k" path="res://scenes/coin.tscn" id="5_fvrg2"]
 [ext_resource type="PackedScene" uid="uid://cmihnokdytckj" path="res://scenes/killzone.tscn" id="6_4x2hi"]
+[ext_resource type="PackedScene" uid="uid://d37pb5e1udpqw" path="res://scenes/enemy.tscn" id="7_sx42r"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xckgu"]
 distance = -189.0
@@ -106,3 +107,11 @@ autoplay = "move"
 
 [node name="Platform3" parent="Platforms" instance=ExtResource("4_i4hce")]
 position = Vector2(320, 100)
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("7_sx42r")]
+position = Vector2(248, 129)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("7_sx42r")]
+position = Vector2(376, 128)
