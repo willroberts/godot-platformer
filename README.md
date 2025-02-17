@@ -1,5 +1,6 @@
-# Brackeys Tutorial
+# Godot Platformer
 
-https://www.youtube.com/watch?v=LOhfqjmasi0
+A simple platformer game made in Godot 4.3 with GDScript.
+Based on the Brackeys Godot Beginner Tutorial.
 
-Left off at 51 mins (66% done)
+Makes use of global state, signals, animations, audio streams, cameras, tilemaps, collision, physics, raycasting, timescale, and timers.
