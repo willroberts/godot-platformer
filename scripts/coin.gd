@@ -1,13 +1,8 @@
 extends Area2D
 
-func _ready() -> void:
-	pass
-
-
-func _process(delta: float) -> void:
-	pass
+@onready var anim_player = $AnimationPlayer
 
 
 func _on_body_entered(body: Node2D) -> void:
 	%GameState.increment_score()
-	queue_free()
+	anim_player.play("pickup")
